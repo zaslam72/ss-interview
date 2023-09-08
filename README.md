@@ -20,7 +20,7 @@ Clone the repository and install NodeJS & Django if you don't have it already
 - Start the server `npm start`
 
 **Manual Steps:**
-- You'll need access to the SS API. Obtain an access token and add it to the `settings.py` file on line 136 (SMARTSHEET_ACCESS_TOKEN)
+- You'll need access to the SS API. Obtain an access token and add it to the `settings.py` file on line 136 `SMARTSHEET_ACCESS_TOKEN`
 - You'll need to update the constants at the top of `smartsheet.py` to your own `SHEET_ID` and `COLUMN_ID`
 
 Don't hesitate to reach out if you have any problems installing the app or getting it running :) 
