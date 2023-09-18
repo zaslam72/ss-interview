@@ -6,6 +6,17 @@
 
 export interface RowProps {
   id: string;
-  status: string;
-  text: string;
+  cells: CellProps[];
+}
+
+export interface ColumnProps {
+  id: string;
+  title: string;
+  type: string;
+  options?: string[];
+}
+
+interface CellProps {
+  columnId: string;
+  value: string;
 }

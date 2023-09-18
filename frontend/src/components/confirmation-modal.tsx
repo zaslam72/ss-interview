@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import React from "react";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 /*
   This is a simple component that renders a confirmation modal.
@@ -12,8 +12,12 @@ interface ConfirmationModalProps {
   handleConfirm: () => void;
 }
 
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ show, toggle, confirmationText, handleConfirm }) => {
-
+const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+  show,
+  confirmationText,
+  toggle,
+  handleConfirm,
+}) => {
   return (
     <Modal isOpen={show} toggle={toggle}>
       <ModalHeader toggle={toggle}>Confirm</ModalHeader>
@@ -30,6 +34,6 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ show, toggle, con
       </ModalFooter>
     </Modal>
   );
-}
+};
 
 export default ConfirmationModal;

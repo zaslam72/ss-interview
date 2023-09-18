@@ -1,64 +1,49 @@
-import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
+import React from "react";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+} from "reactstrap";
+import { ColumnProps, RowProps } from "../types";
+import TaskInput from "./task-input";
 
 /*
   This component adds and edits tasks through a form within a modal.
-
-  GAP: Theoretically, we could split this out into a Modal component and a separate Form component
-  GAP: Due to time constraints, I hardcoded the form to only handle task & status.
-    We could go further and build a form conditionally from the columns provided on the sheet.
-    We could have the form read from the "PICKLIST" options from the columns API.
 */
 
 interface AddEditModalProps {
   show: boolean;
-  row?: {
-    id: string;
-    status: string;
-    text: string;
-  };
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  columns: ColumnProps[];
+  row?: RowProps;
   toggle: () => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const AddEditModal: React.FC<AddEditModalProps> = ({ show, row, toggle, handleSubmit }) => {
+const AddEditModal: React.FC<AddEditModalProps> = ({
+  show,
+  columns,
+  row,
+  toggle,
+  handleSubmit,
+}) => {
   return (
     <Modal isOpen={show} toggle={toggle}>
-      <ModalHeader toggle={toggle}>{row ? "Edit Task" : "Add a Task"}</ModalHeader>
+      <ModalHeader toggle={toggle}>
+        {row ? "Edit Task" : "Add a Task"}
+      </ModalHeader>
       <ModalBody>
         <Form id="task-form" onSubmit={handleSubmit}>
-          <FormGroup>
-            <Label for="status">
-              Status
-            </Label>
-            <Input
-              id="status"
-              name="status"
-              type="select"
-              defaultValue={row?.status}
-            >
-              <option value="Not Started">
-                Not Started
-              </option>
-              <option value="In Progress">
-                In Progress
-              </option>
-              <option value="Complete">
-                Complete
-              </option>
-            </Input>
-          </FormGroup>
-          <FormGroup>
-            <Label for="text">
-              Task
-            </Label>
-            <Input
-              id="text"
-              name="text"
-              type="textarea"
-              defaultValue={row?.text}
+          {/* Display inputs for each column provided */}
+          {columns?.map((column, idx) => (
+            <TaskInput
+              key={`${column.id}-${idx}-form-group`}
+              column={column}
+              row={row}
             />
-          </FormGroup>
+          ))}
         </Form>
       </ModalBody>
       <ModalFooter>
@@ -66,11 +51,11 @@ const AddEditModal: React.FC<AddEditModalProps> = ({ show, row, toggle, handleSu
           Cancel
         </Button>
         <Button form="task-form" type="submit" color="primary">
-          {row ? "Edit" : "Add"}
+          {row ? "Save Changes" : "Add"}
         </Button>
       </ModalFooter>
     </Modal>
   );
-}
+};
 
 export default AddEditModal;
