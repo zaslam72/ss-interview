@@ -4,6 +4,7 @@ import { Card, CardBody, CardTitle, Spinner } from "reactstrap";
 import TaskList from "./components/task-list";
 import AddTask from "./components/add-task";
 import { ColumnProps, RowProps } from "./types";
+import { get } from "./api/helpers";
 
 /*
   Starting point for the frontend.
@@ -17,12 +18,12 @@ function App() {
   const [columns, setColumns] = useState<ColumnProps[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/todos/")
-      .then((response) => response.json())
-      .then((data) => {
-        setRows(data.rows);
-        setColumns(data.columns);
-      });
+    // Make a GET request to our API to retrieve column and row data
+    // GAP: Need to add error handling
+    get("todos/").then((data) => {
+      setRows(data.rows);
+      setColumns(data.columns);
+    });
   }, []);
 
   if (!columns.length) {

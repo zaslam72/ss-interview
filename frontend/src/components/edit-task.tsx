@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "reactstrap";
 import AddEditModal from "./add-edit-modal";
 import { ColumnProps, RowProps } from "../types";
+import { put } from "../api/helpers";
 
 /*
   This component edits a given task.
@@ -11,8 +12,6 @@ import { ColumnProps, RowProps } from "../types";
     - We could ignore the API call if the input has not changed
     - We could check this on the backend also 
 */
-
-// TODO BEFORE SUBMITTING: REFACTOR OUT API CALL INTO A REUSABLE METHOD!
 
 interface EditTaskProps {
   columns: ColumnProps[];
@@ -32,26 +31,12 @@ const EditTask: React.FC<EditTaskProps> = ({ columns, row, setRows }) => {
     const postBody = Object.fromEntries(data.entries());
 
     // Make a PUT request to our API to update the existing task
-    try {
-      const data = await (
-        await fetch(`http://localhost:8000/api/todos/${row.id}/`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(postBody),
-        })
-      ).json();
-      if (data && data.rows) {
-        // If successful, close the modal and set the updated rows
-        setModal(!modal);
-        setRows(data.rows);
-      }
-      // GAP: what should the behavior be if there is no data or data.rows returned?
-    } catch (error) {
-      // GAP: need to add better error handling & messaging
-      console.log(error);
-    }
+    // GAP: Need to add error handling
+    await put(`todos/${row.id}/`, postBody).then((data) => {
+      // If successful, close the modal and set the updated rows
+      setModal(!modal);
+      setRows(data.rows);
+    });
   };
 
   return (

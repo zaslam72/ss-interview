@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Table } from "reactstrap";
 import Task from "./task";
 import { ColumnProps, RowProps } from "../types";
@@ -20,7 +20,7 @@ const TaskList: React.FC<TaskListProps> = ({ rows, setRows, columns }) => {
         <tr>
           {/* Display the list of columns */}
           {columns.map((column, idx) => {
-            return <th key={idx}>{column.title}</th>;
+            return <th key={`${column.title}-${idx}`}>{column.title}</th>;
           })}
           <th>Actions</th>
         </tr>
