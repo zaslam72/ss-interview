@@ -5,18 +5,18 @@
 */
 
 export interface RowProps {
-  id: string;
+  id: number;
   cells: CellProps[];
 }
 
 export interface ColumnProps {
-  id: string;
+  id: number;
   title: string;
   type: string;
   options?: string[];
 }
 
 interface CellProps {
-  columnId: string;
+  columnId: number;
   value: string;
 }

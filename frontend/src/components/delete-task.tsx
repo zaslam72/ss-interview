@@ -10,7 +10,7 @@ import { destroy } from "../api/helpers";
 */
 
 interface DeleteTaskProps {
-  rowId: string;
+  rowId: number;
   setRows: (value: RowProps[]) => void;
 }
 

@@ -12,8 +12,8 @@ class TodoViewSet(viewsets.ViewSet):
         It retrieves a list of tasks and columns from our sheet.
         If successful, it returns a JSON response with the following data:
             status: int
-            rows: List[{ id: str | int, cells: List[{ columnId: str, value: str }] }]
-            columns: List[{ id: str | int, type: str, title: str, options: Optional[List[str]] }]
+            rows: List[{ id: int, cells: List[{ columnId: int, value: str }] }]
+            columns: List[{ id: int, type: str, title: str, options: Optional[List[str]] }]
         """
         columns = get_columns()
         rows = get_tasks()
@@ -28,7 +28,7 @@ class TodoViewSet(viewsets.ViewSet):
             [columnId: str]: [value: str]
         If successful, it returns a JSON response with the following data:
             status: int
-            rows: List[{ id: str | int, cells: List[{ columnId: str, value: str }] }]
+            rows: List[{ id: int, cells: List[{ columnId: int, value: str }] }]
         """
         body = json.loads(request.body)
         create_or_update_task(body)
@@ -45,7 +45,7 @@ class TodoViewSet(viewsets.ViewSet):
             [columnId: str]: [value: str]
         If successful, it returns a JSON response with the following data:
             status: int
-            rows: List[{ id: str | int, cells: List[{ columnId: str, value: str }] }]
+            rows: List[{ id: int, cells: List[{ columnId: int, value: str }] }]
         """
         body = json.loads(request.body)
         create_or_update_task(body, pk)
@@ -59,7 +59,7 @@ class TodoViewSet(viewsets.ViewSet):
         The URL should contain the ID of the task that needs to be deleted.
         If successful, it returns a JSON response with the following data:
             status: int
-            rows: List[{ id: str | int, cells: List[{ columnId: str, value: str }] }]
+            rows: List[{ id: int, cells: List[{ columnId: int, value: str }] }]
         """
         delete_task(pk)
         rows = get_tasks()

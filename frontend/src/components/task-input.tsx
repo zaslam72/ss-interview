@@ -29,7 +29,7 @@ const TaskInput: React.FC<TaskInputProps> = ({ column, row }) => {
         <Label for={title}>{title}</Label>
         <Input
           id={title}
-          name={column.id}
+          name={`${column.id}`}
           type="select"
           defaultValue={defaultValue}
         >
@@ -48,7 +48,7 @@ const TaskInput: React.FC<TaskInputProps> = ({ column, row }) => {
         <Label for={title}>{title}</Label>
         <Input
           id={title}
-          name={column.id}
+          name={`${column.id}`}
           type="textarea"
           defaultValue={defaultValue}
         />
